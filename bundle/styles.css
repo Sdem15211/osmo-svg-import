@@ -1,0 +1,246 @@
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("../src/fonts/ppneuemontreal-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+:root {
+  --color-light: #ffffff;
+  --color-dark: #292929;
+  --color-dark-secondary: #353535;
+  --color-primary: #ff4c24;
+}
+
+body {
+  margin: 0;
+  background: var(--color-dark);
+  color: var(--color-light);
+  font-family: "PP Neue Montreal", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 8px;
+  height: 330px;
+  width: 224px;
+}
+
+.canvas {
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: var(--color-dark-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex: 1;
+  width: 100%;
+  transform: translateY(-6px);
+  padding: 24px 0px 16px 0px;
+}
+
+.canvas-first-state {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  max-width: 180px;
+  width: 100%;
+}
+
+.canvas-second-state {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  max-width: 180px;
+}
+
+.canvas-third-state {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  max-width: 180px;
+}
+
+.canvas-fourth-state {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  max-width: 180px;
+  width: 100%;
+}
+
+.canvas-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-title {
+  font-weight: 500;
+  color: var(--color-light);
+  font-size: 12px;
+  margin: 0;
+}
+
+.canvas-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  margin: 0;
+}
+
+.focus-canvas {
+  width: 196px;
+  height: 160px;
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(81, 81, 81, 1);
+  cursor: pointer;
+}
+
+.focus-canvas.is-third {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.control-item input[type="checkbox"] {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.control-item input[type="checkbox"]:checked {
+  background-color: #ff4c243e;
+  border-color: var(--color-primary);
+}
+
+.control-item input[type="checkbox"]:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  color: var(--color-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4c24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.focus-instructions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.focus-instructions-item {
+  font-size: 10px;
+  color: var(--color-light);
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 6px 8px;
+  border-radius: 2px;
+}
+
+.canvas-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-another-button {
+  background-color: #ff4c24;
+  color: var(--color-light);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 6px 8px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.process-another-button:hover {
+  background-color: #fc603d;
+}
+
+.close-app-button {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  line-height: 150%;
+  padding: 6px 8px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.close-app-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.button-container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}

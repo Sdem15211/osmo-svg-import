@@ -4,12 +4,32 @@ import { processSvgForWebflow } from "./process-svg-webflow";
 import { OsmoLogo } from "./osmo-logo";
 
 const App: React.FC = () => {
-  const [fillsUseCurrentColor, setFillsUseCurrentColor] = useState(false);
-  const [strokesUseCurrentColor, setStrokesUseCurrentColor] = useState(true);
+  const [fillsUseCurrentColor, setFillsUseCurrentColor] = useState(() => {
+    const saved = localStorage.getItem("fillsUseCurrentColor");
+    return saved ? JSON.parse(saved) : false;
+  });
+  const [strokesUseCurrentColor, setStrokesUseCurrentColor] = useState(() => {
+    const saved = localStorage.getItem("strokesUseCurrentColor");
+    return saved ? JSON.parse(saved) : true;
+  });
   const [selectedElement, setSelectedElement] = useState<any>(null);
   const [isFocusCanvasActive, setIsFocusCanvasActive] = useState(false);
   const [svgPasteSuccess, setSvgPasteSuccess] = useState(false);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "fillsUseCurrentColor",
+      JSON.stringify(fillsUseCurrentColor)
+    );
+  }, [fillsUseCurrentColor]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "strokesUseCurrentColor",
+      JSON.stringify(strokesUseCurrentColor)
+    );
+  }, [strokesUseCurrentColor]);
 
   useEffect(() => {
     const unsubscribe = webflow.subscribe("selectedelement", (element) => {
