@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { OsmoCursor } from "./osmo-cursor";
 import { processSvgForWebflow } from "./process-svg-webflow";
 import { OsmoLogo } from "./osmo-logo";
 
 const App: React.FC = () => {
   const [fillsUseCurrentColor, setFillsUseCurrentColor] = useState(() => {
     const saved = localStorage.getItem("fillsUseCurrentColor");
-    return saved ? JSON.parse(saved) : false;
+    return saved ? JSON.parse(saved) : true;
   });
   const [strokesUseCurrentColor, setStrokesUseCurrentColor] = useState(() => {
     const saved = localStorage.getItem("strokesUseCurrentColor");
@@ -51,10 +50,6 @@ const App: React.FC = () => {
   const handleProcessAnother = () => {
     setSvgPasteSuccess(false);
     setIsFocusCanvasActive(true);
-  };
-
-  const handleCloseApp = () => {
-    webflow.closeExtension();
   };
 
   const handleSvgPaste = (pastedText: string) => {
@@ -141,13 +136,45 @@ const App: React.FC = () => {
         {!selectedElement ? (
           <div className="canvas-wrapper">
             <div className="canvas-first-state">
-              <OsmoCursor />
+              <svg
+                width="25"
+                height="41"
+                viewBox="0 0 25 41"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  width="18"
+                  height="18"
+                  rx="9"
+                  fill="#FF412C"
+                  fillOpacity="0.12"
+                />
+                <rect
+                  x="0.5"
+                  y="0.5"
+                  width="17"
+                  height="17"
+                  rx="8.5"
+                  stroke="#FF412C"
+                  strokeOpacity="0.7"
+                />
+                <path
+                  d="M10.2 9H7.28571V10.4522H5.82857V23.5219H4.37143V22.0697H0V26.4263H1.45714V27.8785H2.91429V30.7829H4.37143V33.6873H5.82857V36.5917H7.28571V40.9483H21.8571V36.5917H23.3143V32.2351H24.7714V22.0697H23.3143V20.6176H21.8571V19.1654H18.9429V17.7132H14.5714V16.261H11.6571V10.4522H10.2V9Z"
+                  fill="#131313"
+                />
+                <path
+                  d="M7.2856 10.9263V26.9004H5.82846V25.4482H4.37132V23.996H1.45703V26.9004H2.91417V28.3526H4.37132V31.257H5.82846V34.1614H7.2856V37.0658H8.74274V39.9702H20.3999V37.0658H21.857V32.7092H23.3142V22.5438H21.857V21.0916H20.3999V25.4482H18.9427V19.6394H16.0285V23.996H14.5713V18.1872H11.657V23.996H10.1999V10.9263H7.2856Z"
+                  fill="#EFEEEC"
+                />
+              </svg>
+
               <div className="canvas-text-content">
                 <h2 className="canvas-title">
                   Select an element on the canvas
                 </h2>
                 <p className="canvas-subtitle">
-                  This is where we will add your SVG element.
+                  This is where we will insert the {`<svg>`} element.
                 </p>
               </div>
             </div>
@@ -155,22 +182,40 @@ const App: React.FC = () => {
         ) : svgPasteSuccess ? (
           <div className="canvas-wrapper">
             <div className="canvas-fourth-state">
-              <OsmoLogo />
-              <h2 className="canvas-title">SVG code pasted successfully!</h2>
-              <div className="button-container">
-                <button
-                  className="process-another-button"
-                  onClick={handleProcessAnother}
-                >
-                  import another SVG
-                </button>
-                <button
-                  className="close-app-button secondary"
-                  onClick={handleCloseApp}
-                >
-                  close app
-                </button>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="0.5"
+                  y="0.5"
+                  width="21"
+                  height="21"
+                  rx="10.5"
+                  fill="#0BA954"
+                  fillOpacity="0.15"
+                  stroke="#0BA954"
+                />
+                <path
+                  d="M7 10.75L10 13.75L15.5 8.25"
+                  stroke="#0BA954"
+                  strokeWidth="1.4"
+                  strokeMiterlimit="10"
+                />
+              </svg>
+              <div className="canvas-text-content">
+                <h2 className="canvas-title">SVG pasted successfully!</h2>
+                <p className="canvas-subtitle">Let's do another one?</p>
               </div>
+              <button
+                className="process-another-button"
+                onClick={handleProcessAnother}
+              >
+                Import another {`<svg>`}
+              </button>
             </div>
           </div>
         ) : isFocusCanvasActive ? (
@@ -178,16 +223,16 @@ const App: React.FC = () => {
             <div className="canvas-third-state">
               <div className="canvas-text-content">
                 <h2 className="canvas-title">
-                  {isDraggingOver ? "Aaaand let go!" : "Now paste your SVG"}
+                  {isDraggingOver ? "Aaaand let go!" : "Great, now paste it!"}
                 </h2>
                 <p className="canvas-subtitle">
                   {isDraggingOver
                     ? "we'll do the rest"
-                    : "or simply drag and drop an SVG"}
+                    : "or drop your .svg file below"}
                 </p>
               </div>
               <div
-                className={`focus-canvas is-third ${
+                className={`focus-canvas ${
                   isDraggingOver ? "is-dragging-over" : ""
                 }`}
                 onClick={() =>
@@ -244,12 +289,12 @@ const App: React.FC = () => {
                 <h2 className="canvas-title">
                   {isDraggingOver
                     ? "Aaaand let go!"
-                    : "Click below to focus in here"}
+                    : "Click below to paste your <svg>"}
                 </h2>
                 <p className="canvas-subtitle">
                   {isDraggingOver
                     ? "we'll do the rest"
-                    : "or simply drag and drop an SVG"}
+                    : "or drop your .svg file below"}
                 </p>
               </div>
               <div

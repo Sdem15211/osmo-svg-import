@@ -34,9 +34,19 @@ export const processSvgForWebflow = async (
         value = "currentColor";
       }
 
+      if (attr.name === "height") {
+        return;
+      }
+
+      if (attr.name === "width") {
+        rootElement.setAttribute("width", "100%");
+        return;
+      }
+
       rootElement.setAttribute(attr.name, value);
     });
 
+    rootElement.setAttribute("width", "100%");
     rootElement.setAttribute("fill", "none");
 
     processChildNodes(svgElement, rootElement, options);
@@ -48,7 +58,6 @@ export const processSvgForWebflow = async (
       message: "SVG successfully added to your element!",
     });
     const defsElements = svgElement.querySelectorAll("defs");
-    console.log("defsElements", defsElements);
     if (defsElements && defsElements.length > 0) {
       await webflow.notify({
         type: "Info",
